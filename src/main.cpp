@@ -20,7 +20,7 @@ int main()
     {
         BeginDrawing();
         ClearBackground(RAYWHITE);
-
+        Visual->moveNode();
         Visual->drawNode(Graph);
 
         EndDrawing();
