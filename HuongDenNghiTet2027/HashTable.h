@@ -10,31 +10,32 @@ using namespace std;
 
 class Button {
 public:
+    Rectangle rect; 
     Button(float x, float y, float width, float height, string text, Color color);
     void draw();
     bool isPressed(Vector2 mousePos, bool mousePressed);
 private:
-    Rectangle rect;
     string text;
     Color color;
 };
 
 class InputBox {
-private:
-    Rectangle rect;
-    int letterCount;
-    int framesCounter;
-
 public:
+    Rectangle rect; 
     char text[4];
     bool boxPressed;
+    Color boxColor;
+    Color textColor;
 
-    InputBox(float x, float y, float width, float height);
+    InputBox(float x, float y, float width, float height, Color bg = LIGHTGRAY, Color txt = MAROON);
     void Update();
     void Draw();
     int GetValue();
     void Clear();
     void checkPressed(Vector2 mousePos, bool mousePressed);
+private:
+    int letterCount;
+    int framesCounter;
 };
 
 class doubleHash {
@@ -46,12 +47,15 @@ public:
     vector<int> hashTable;
     bitset<MAX_SIZE> isPrime;
 
+    // ANIMATION VARIABLES
     bool isAnimating;
+    int animType; // 1: Insert, 2: Search, 3: Erase
     vector<int> probePath;
     int currentProbeIndex;
     int animatingValue;
     float animationTimer;
     float animationDelay;
+    int highlightedBucket;
 
     doubleHash(int n);
 
@@ -61,8 +65,8 @@ public:
     bool inline isFull();
 
     void insert(int value, bool animate = true);
-    void erase(int value);
-    int search(int value);
+    void erase(int value, bool animate = true);
+    int search(int value, bool animate = true);
 
     void updateAnimation(float dt);
     void draw(int screenWidth, int screenHeight);
