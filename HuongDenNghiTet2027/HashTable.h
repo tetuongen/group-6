@@ -38,6 +38,20 @@ private:
     int framesCounter;
 };
 
+class Slider {
+public:
+    Rectangle bounds; 
+    float minValue;  
+    float maxValue;     
+    float currentValue; 
+    bool isDragging;  
+
+    Slider(float x, float y, float width, float height, float minVal, float maxVal, float initialVal);
+    void Update(Vector2 mousePos, bool mouseDown);
+    void Draw();
+    float GetValue();
+};
+
 class doubleHash {
 public:
     int TABLE_SIZE;
@@ -71,3 +85,6 @@ public:
     void updateAnimation(float dt);
     void draw(int screenWidth, int screenHeight);
 };
+
+void DrawLabel(float x, float y, string text, Color color = DARKGRAY);
+void DrawFlatButton(Rectangle rect, string text, Color bgColor, bool leftAlign = true);

@@ -10,9 +10,6 @@ const int ACTION_SEARCH = 2;
 const int ACTION_INSERT = 3;
 const int ACTION_REMOVE = 4;
 
-void DrawLabel(float x, float y, string text, Color color = DARKGRAY);
-void DrawFlatButton(Rectangle rect, string text, Color bgColor, bool leftAlign = true);
-
 int main() {
     const int screenWidth = 1200;
     const int screenHeight = 700;
@@ -70,6 +67,7 @@ int main() {
     InputBox removeVInput(panelX + MeasureText("v = ", 20), removeMenuButton.rect.y, 100, buttonHeight, BLACK, WHITE);
     Button removeGoButton(removeVInput.rect.x + removeVInput.rect.width + 5, removeMenuButton.rect.y, 50, buttonHeight, "Go", toggleColor);
 
+    Slider speedSlider(50, 600, 200, 20, 0.05f, 1.5f, 0.5f);
     while (!WindowShouldClose()) {
         float deltaTime = GetFrameTime();
         myHash->updateAnimation(deltaTime);
@@ -163,6 +161,9 @@ int main() {
             }
         }
 
+        speedSlider.Update(mousePosition, IsMouseButtonDown(MOUSE_BUTTON_LEFT)); 
+        myHash->animationDelay = speedSlider.GetValue();
+
         // BEGIN DRAWING
         BeginDrawing();
         ClearBackground({ 240, 240, 240, 255 });
@@ -186,7 +187,7 @@ int main() {
         }
 
         if (isMenuExpanded) {
-            int labelOffsetY = 12; // Centering adjustment for text
+            int labelOffsetY = 12;
             switch (currentAction) {
             case ACTION_CREATE:
                 DrawLabel(panelX, createMenuButton.rect.y + labelOffsetY, "New HT of size M =");
@@ -217,27 +218,12 @@ int main() {
             }
         }
 
+        speedSlider.Draw();
+
         EndDrawing();
     }
 
     delete myHash;
     CloseWindow();
     return 0;
-}
-
-void DrawLabel(float x, float y, string text, Color color) {
-    DrawText(text.c_str(), (int)x, (int)y, 20, color);
-}
-
-void DrawFlatButton(Rectangle rect, string text, Color bgColor, bool leftAlign) {
-    DrawRectangleRec(rect, bgColor);
-    DrawLine((int)rect.x, (int)(rect.y + rect.height), (int)(rect.x + rect.width), (int)(rect.y + rect.height), { 255, 255, 255, 40 });
-    int textY = (int)rect.y + ((int)rect.height - 20) / 2;
-    if (leftAlign) {
-        DrawText(text.c_str(), (int)rect.x + 15, textY, 20, RAYWHITE);
-    }
-    else {
-        int textWidth = MeasureText(text.c_str(), 20);
-        DrawText(text.c_str(), (int)rect.x + ((int)rect.width - textWidth) / 2, textY, 20, RAYWHITE);
-    }
 }

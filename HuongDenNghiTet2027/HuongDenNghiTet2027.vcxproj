@@ -134,6 +134,7 @@
     <ResourceCompile Include="HuongDenNghiTet2027.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="uiclass.cpp" />
     <ClCompile Include="HashTable.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
