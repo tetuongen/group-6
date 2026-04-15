@@ -1,0 +1,12 @@
+This project includes two implementations of Treap: C++ and Python version.
+
+C++ version:
+- Files: main.cpp, treap.cpp, treap.h
+- Compile: g++ main.cpp treap.cpp -o main
+- Run: ./main.exe
+
+Python version:
+- File: main.py
+- Run: py main.py
+
+Make sure all files are in the same directory. Run commands in a terminal.
